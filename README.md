@@ -1,19 +1,19 @@
 # Telco Customer Churn
 
-# Project Description
+## Project Description
 
 The Telco company has been losing customers and does not know why.  Using the account information for each customer. I will compare different services that each customer pays for. A service or customer data could potentially increase or decrease the chance that a customer will churn.
 
-# Project Goal
+## Project Goal
 
 * Find drivers of churn
 * User drivers to create ML models
 
-# Initial Thoughts
+## Initial Thoughts
 
 My initial hypothesis is that drivers of churn will be descriptions of customers that isolate them in groups with higher likelihood of leaving the company.
 
-# The Plan
+## The Plan
 
 * Aquire data from SQL database
 
@@ -44,7 +44,7 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
  
 * Draw conclusions
 
-# Data Dictionary
+## Data Dictionary
 | Feature | Definition |
 |:--------|:-----------|
 |Churn| True or False, The game's result is reflected in each player's rating|
@@ -60,17 +60,17 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 |Additional Features|Encoded and values for categorical data and scaled versions continuous data|
  
 
-# Instructions?
+## Instructions?
 
 
 
-# Steps to Reproduce
+## Steps to Reproduce
 1) Clone this repo.
 2) Acquire the data from Codeup SQL Database
 3) Put the data in the file containing the cloned repo.
 4) Run notebook.
 
-# Takeaways and Conclusions
+## Takeaways and Conclusions
 * Upsets occur in 1/3 of games
 * In games where the lower rated player moves first there is a 4% greater chance of an upset
 * Games that are rated have a 3% higher chance of an upset
@@ -82,7 +82,7 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 
 
 
-# Recommendations
+## Recommendations
 * To increase the skill intensity of a game add to the length of time players are able to consider their moves
 * Based on the data longer time controls make it less likely for a less skilled player to beat a more skilled player
 
