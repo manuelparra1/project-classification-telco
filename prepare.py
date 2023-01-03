@@ -3,38 +3,6 @@ import pandas as pd
 import seaborn as sns
 import env
 
-def prep_iris(df):
-    '''
-    
-    
-    
-    '''
-    
-    to_drop = ['species_id', 'measurement_id']
-    
-    df.drop(columns=to_drop, inplace=True)
-    df.rename(columns={'species_name': 'species'}, inplace=True)
-    dummy_iris = pd.get_dummies(df.species, drop_first=True)
-    df = pd.concat([df, dummy_iris], axis=1)
-    return df
-
-def prep_titanic(df):
-    '''
-    
-    accepts titanic dataframe
-    
-    removes unused columns, creates dummy columns for categorical values, and
-    concatenates temporary variable holding dummies to main dataframe
-    
-    returns updated dataframe
-    
-    '''
-    # Class, Deck, Embarked, are redundant
-    df.drop(columns=['Unnamed: 0','passenger_id','class','deck','embarked'], inplace=True)
-    dummy_titanic = pd.get_dummies(df[['sex','embark_town']], drop_first=True)
-    df = pd.concat([df, dummy_titanic], axis=1)
-    return df
-
 def prep_telco(df):
     '''
     
@@ -53,11 +21,15 @@ def prep_telco(df):
     # Remove useless columns from incoming dataframe
     df = df.drop(columns = ['internet_service_type_id', 'contract_type_id', 'payment_type_id'])
     
+    # Remove duplicate columns
+    df = df.loc[:,~df.columns.duplicated()].copy()
+    
     # Temporary list with only names of categorical columns from incoming dataframe
     categorical_columns = df.drop(columns = 'customer_id').select_dtypes(include=object).columns.to_list()
 
     # Filtering list into 1 of 2 types of categorical columns:
     # e.g. BIVARIATE
+    #-------------------------------------------------------------------------------------------------------
     
     # Empty list to hold categorical columns with BIVARIATE values
     categorical_columns_binary = []
@@ -73,7 +45,8 @@ def prep_telco(df):
 
     # Filtering list into 2 of 2 types of categorical columns:
     # e.g. MULTIVARIATE
-    
+    #-------------------------------------------------------------------------------------------------------
+
     # Empty list to hold categorical columns with MULTIVARIATE values
     categorical_columns_not_binary = []
     
@@ -98,7 +71,6 @@ def split_dataset(df):
     import numpy as np
 
     from sklearn.model_selection import train_test_split
-    from sklearn.impute import SimpleImputer
     '''
     returns train, validate, test (in that order)
     

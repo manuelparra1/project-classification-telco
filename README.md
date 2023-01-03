@@ -65,8 +65,6 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 | Upset (Target)      | True or False, The lower rated player won the game                                                                                                                                                         |
 | Additional Features | Encoded and values for categorical data and scaled versions continuous data                                                                                                                                |
 
-## Instructions?
-
 ## Steps to Reproduce
 
 1. Clone this repo.
