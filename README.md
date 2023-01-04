@@ -39,6 +39,7 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
     - Is tenure important driving churn?
     - Is paperless_billing, payment_type related?
     - Does having `dependents` & `multiple_lines` correlate to churn?
+    -
 
 - Develop a Model to predict churn
 
