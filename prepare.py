@@ -1,67 +1,50 @@
-import numpy as np
-import pandas as pd
-import seaborn as sns
-import env
-
-def prep_telco(df):
-    '''
-    
-    accepts Telco Churn Dataframe
-    
-    Fixes numerical column 'total_charges' in wrong data type, drops unused columns,
-    creates dummy columns of categorical values (sorts bivariate & multivariate), and
-    concatenates temporary variables holding 2 types of dummies to main dataframe
-    
-    
-    '''
-    
-    # Fix incoming dataframe column with numerical values set as string type
+def clean_telco_data(df):
     df['total_charges'] = (df.total_charges + '0').astype('float')
+    df = df.drop(columns=['internet_service_type_id', 'contract_type_id', 'payment_type_id'])
+    df['gender_encoded'] = df.gender.map({'Female': 1, 'Male': 0})
+    df['partner_encoded'] = df.partner.map({'Yes': 1, 'No': 0})
+    df['dependents_encoded'] = df.dependents.map({'Yes': 1, 'No': 0})
+    df['phone_service_encoded'] = df.phone_service.map({'Yes': 1, 'No': 0})
+    df['paperless_billing_encoded'] = df.paperless_billing.map({'Yes': 1, 'No': 0})
+    df['churn_encoded'] = df.churn.map({'Yes': 1, 'No': 0})
+    dummy_df = pd.get_dummies(df[['multiple_lines', \
+                              'online_security', \
+                              'online_backup', \
+                              'device_protection', \
+                              'tech_support', \
+                              'streaming_tv', \
+                              'streaming_movies', \
+                              'contract_type', \
+                              'internet_service_type', \
+                              'payment_type'
+                            ]],
+                              drop_first=True)
+    df = pd.concat( [df, dummy_df], axis=1 )
     
-    # Remove useless columns from incoming dataframe
-    df = df.drop(columns = ['internet_service_type_id', 'contract_type_id', 'payment_type_id'])
-    
-    # Remove duplicate columns
-    df = df.loc[:,~df.columns.duplicated()].copy()
-    
-    # Temporary list with only names of categorical columns from incoming dataframe
-    categorical_columns = df.drop(columns = 'customer_id').select_dtypes(include=object).columns.to_list()
-
-    # Filtering list into 1 of 2 types of categorical columns:
-    # e.g. BIVARIATE
-    #-------------------------------------------------------------------------------------------------------
-    
-    # Empty list to hold categorical columns with BIVARIATE values
-    categorical_columns_binary = []
-
-    # Loop to search binary values in categorical column
-    for i in range(len(categorical_columns)):
-        if len(df[categorical_columns[i]].value_counts()) == 2:
-            categorical_columns_binary.append(categorical_columns[i])
-
-    # Use new filled list with column names, from
-    # filtered incoming dataframe, to create dummies
-    categorical_columns_binary_dummies = pd.get_dummies(df[categorical_columns_binary],drop_first=True)
-
-    # Filtering list into 2 of 2 types of categorical columns:
-    # e.g. MULTIVARIATE
-    #-------------------------------------------------------------------------------------------------------
-
-    # Empty list to hold categorical columns with MULTIVARIATE values
-    categorical_columns_not_binary = []
-    
-    # Loop to search MULTIVARIATE values in categorical column
-    for i in range(len(categorical_columns)):
-        if len(df[categorical_columns[i]].value_counts()) > 2:
-            categorical_columns_not_binary.append(categorical_columns[i])
-
-    # Use new filled list with column names, from
-    # filtered incoming dataframe, to create dummy column dataframes
-    categorical_columns_not_binary_dummies = pd.get_dummies(df[categorical_columns_not_binary],drop_first=True)
-
-    # Use both sets of dummy column dataframes to concatenate them
-    # to main dataframe:
-
-    df = pd.concat([df, categorical_columns_binary_dummies], axis=1)
-    df = pd.concat([df, categorical_columns_not_binary_dummies], axis=1)
     return df
+
+def split_telco_data(df):
+    from sklearn.model_selection import train_test_split
+    '''
+    split_data will take in a single pandas dataframe
+    it will split it into a train, validate, and test set
+    and it will return three values:
+    train, val, test (in this order) -- all pandas Dataframes
+    '''
+    train, test = train_test_split(df, 
+                               train_size = 0.8,
+                               random_state=1349,
+                              stratify=df[target])
+    train, val = train_test_split(train,
+                             train_size = 0.7,
+                             random_state=1349,
+                             stratify=train[target])
+    return train, val, test
+
+def model_telco_data(df,target='churn'):
+    target='churn'
+    
+    X_df = df.drop(columns=target)
+    y_df = df.[target]
+
+    return X_df, y_df
