@@ -1,4 +1,7 @@
 def clean_telco_data(df):
+    import pandas as pd
+    
+    df = df.loc[:,~df.columns.duplicated()].copy()
     df['total_charges'] = (df.total_charges + '0').astype('float')
     df = df.drop(columns=['internet_service_type_id', 'contract_type_id', 'payment_type_id'])
     df['gender_encoded'] = df.gender.map({'Female': 1, 'Male': 0})
@@ -23,7 +26,7 @@ def clean_telco_data(df):
     
     return df
 
-def split_telco_data(df):
+def split_telco_data(df, target='churn'):
     from sklearn.model_selection import train_test_split
     '''
     split_data will take in a single pandas dataframe
@@ -41,10 +44,14 @@ def split_telco_data(df):
                              stratify=train[target])
     return train, val, test
 
-def model_telco_data(df,target='churn'):
-    target='churn'
+def model_telco_data(df,target='churn_encoded'):
+    columns_to_drop = ['customer_id','gender','partner','dependents','phone_service','paperless_billing','churn',\
+              'multiple_lines', 'online_security', 'online_backup', 'device_protection', 'tech_support',\
+               'streaming_tv', 'streaming_movies', 'contract_type', 'internet_service_type', 'payment_type',\
+                  'contract_type','churn_month','signup_date']
+    columns_to_drop.append(target)
     
-    X_df = df.drop(columns=target)
-    y_df = df.[target]
+    X_df = df.drop(columns=columns_to_drop)
+    y_df = df[target]
 
     return X_df, y_df
