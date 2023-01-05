@@ -1,28 +1,107 @@
-# Classification Project
+# Telco Customer Churn
 
-## Acquire
+# Project Description
 
-- `acquire.py`
+The Telco company has been losing customers and does not know why.  Using the account information for each customer. I will compare different services that each customer pays for. A service or customer data could potentially increase or decrease the chance that a customer will churn.
 
-## Prepare
+# Project Goal
 
-- `prepare.py`
-  - `clean()`
+* Find drivers of churn
+* User drivers to create ML models
 
-## Explore
+# Initial Thoughts
 
-## Model
+My initial hypothesis is that drivers of churn will be descriptions of customers that isolate them in groups with higher likelihood of leaving the company.
 
-- Prep For Model - `prepare.py`
-  - split()
-    - `train,val,test`
-  - model()
-    - `X_df, y_df`
-- Train
-  - KNN
-  - Random Forest
-  - Regression
+# The Plan
 
-## Finish
+* Aquire data from SQL database
 
-- Save `.csv`
+* Aquire data from SQL database
+ 
+* Prepare data
+   * Left Join additional customer info to `customers` table
+   * Drop redundant columns in dataframe using Pandas
+ 
+* Explore data in search of drivers of upsets
+   * Answer the following initial questions
+       * How often does churn occur?
+       * Does gender & total charge affect churn?
+       * Does join date affect churn?
+       * Does total addons affect churn?
+       * Does total deviation from average of `total_charges` affect churn?
+       * Does having tech support and  being a senior citizen effect churn?
+       * Does being a senior citizen affect churn?
+       * Is tenure important driving churn?
+       * Is paperless_billing, payment_type related?
+       * Does having `dependents` & `multiple_lines` correlate to churn?
+
+* Develop a Model to predict churn
+   * Use drivers identified in _**explore**_ to build predictive models of different types
+   * Evaluate models on train and validate data
+   * Select the best model based on highest accuracy
+   * Evaluate the best model on test data
+ 
+* Draw conclusions
+
+# Data Dictionary
+| Feature | Definition |
+|:--------|:-----------|
+|Churn| Customer leaving the company|
+| Total Addons | Number of additional service besides phone and internet|
+
+
+# Steps to Reproduce
+1) Clone this repo.
+2) Acquire the data from Codeup SQL Database
+3) Put the data in the file containing the cloned repo.
+4) Run notebook.
+
+# Takeaways and Conclusions
+* Upsets occur in 1/3 of games
+* In games where the lower rated player moves first there is a 4% greater chance of an upset
+* Games that are rated have a 3% higher chance of an upset
+* Games with a "quick" time control (30 min or less) have about a 1 in 3 chance of upset
+* Games with a "slow" time control (60 min or more) have about a 1 in 5 chance of upset
+* The mean rating of players in a game is not a driver of upsets
+* The difference in player rating is a driver of upsets
+* A player's choice of opening is a driver of upsets, however its influence is complicated and I would need more time to discover what role it plays
+
+# Recommendations
+* To increase the skill intensity of a game add to the length of time players are able to consider their moves
+* Based on the data longer time controls make it less likely for a less skilled player to beat a more skilled player
+
+---
+
+# All columns:
+
+```python
+gender
+senior_citizen
+partner
+dependents
+tenure
+phone_service
+multiple_lines
+```
+```python
+online_security
+online_backup
+device_protection
+tech_support
+streaming_tv
+streaming_movies
+```
+```python
+monthly_charges
+total_charges
+contract_type
+internet_service_type
+```
+```python
+payment_type
+paperless_billing
+```
+```python
+churn
+```
