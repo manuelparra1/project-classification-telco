@@ -1,5 +1,7 @@
 # Classification Project
 
+## _wrangle.py?_
+
 ## Acquire
 
 - `acquire.py`
@@ -23,6 +25,19 @@
   - Random Forest
   - Regression
 
+### Evaluate
+
+-
+
 ## Finish
 
 - Save `.csv`
+
+## To-Do
+
+```
+- Comment Model (Compare against Base)
+- Comment Functions
+- Data Dictionary
+- .csv
+```

@@ -55,3 +55,14 @@ def model_telco_data(df,target='churn_encoded'):
     y_df = df[target]
 
     return X_df, y_df
+
+def eval_results(p, alpha, group1, group2):
+    '''
+    this function will take in the p-value, alpha, and a name for the 2 variables
+    you are comparing (group1 and group2) and return a string stating 
+    whether or not there exists a relationship between the 2 groups. 
+    '''
+    if p < alpha:
+        return f'There exists some relationship between {group1} and {group2}. (p-value: {p:.4f})'
+    else:
+        return f'There is not a significant relationship between {group1} and {group2}. (p-value: {p:.4f})'
