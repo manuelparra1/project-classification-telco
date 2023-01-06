@@ -39,7 +39,7 @@ def split_telco_data(df, target='churn'):
                                random_state=1349,
                               stratify=df[target])
     train, val = train_test_split(train,
-                             train_size = 0.7,
+                             train_size = 0.8,
                              random_state=1349,
                              stratify=train[target])
     return train, val, test

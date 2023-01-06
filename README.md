@@ -16,8 +16,6 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 # The Plan
 
 * Aquire data from SQL database
-
-* Aquire data from SQL database
  
 * Prepare data
    * Left Join additional customer info to `customers` table
@@ -47,9 +45,27 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 # Data Dictionary
 | Feature | Definition |
 |:--------|:-----------|
-|Churn| Customer leaving the company|
-| Total Addons | Number of additional service besides phone and internet|
-
+|customer_id| unique indentifier |
+|gender| customer gender |
+|senior_citizen| customer age status |
+|dependents| customer total number of dependents |
+|tenure| customer length of contract |
+|phone_service| customer phone service status |
+|multiple_lines| customer additional phone lines |
+|online_security| does customer have online security |
+|online_backup| does customer have online backup |
+|device_protection| does customer have device protection |
+|tech_support| does customer have tech suport |
+|streaming_tv| does customer have streaming tv addon service |
+|streaming_movies| does customer have streaming movies addon service |
+|paperless_billing| does customer have paperless billing feature |
+|monthly_charges| what customer pays every month |
+|total_charges| sum of all monthly charges in tenure |
+|churn| If customer left the company `churn` = 1, otherwise = 0 |
+|internet_service_type| does customer have internet service |
+|payment_type| customer form of payment for service |
+|contract_type| does customer have monthly or annual contract |
+| addon_sum | total count of additional service besides phone and internet|
 
 # Steps to Reproduce
 1) Clone this repo.
@@ -58,50 +74,16 @@ My initial hypothesis is that drivers of churn will be descriptions of customers
 4) Run notebook.
 
 # Takeaways and Conclusions
-* Upsets occur in 1/3 of games
-* In games where the lower rated player moves first there is a 4% greater chance of an upset
-* Games that are rated have a 3% higher chance of an upset
-* Games with a "quick" time control (30 min or less) have about a 1 in 3 chance of upset
-* Games with a "slow" time control (60 min or more) have about a 1 in 5 chance of upset
-* The mean rating of players in a game is not a driver of upsets
-* The difference in player rating is a driver of upsets
-* A player's choice of opening is a driver of upsets, however its influence is complicated and I would need more time to discover what role it plays
+* churn makes up 26.54% of the data 
+* by guessing not churn for every customer one could achieve an accuracy of 73.46%
+* 73.46% was the baseline accuracy
+* Total churn = 1869 out of 7043 customers.
+<br>
+
+* Out of the Random Forest, KNN, and Logistic Regression models Random Forest performed higher than baseline on train and validate
+* The Logistic Regression model performed slightly better on validate data but was worse than baseline on either one.
 
 # Recommendations
-* To increase the skill intensity of a game add to the length of time players are able to consider their moves
-* Based on the data longer time controls make it less likely for a less skilled player to beat a more skilled player
-
----
-
-# All columns:
-
-```python
-gender
-senior_citizen
-partner
-dependents
-tenure
-phone_service
-multiple_lines
-```
-```python
-online_security
-online_backup
-device_protection
-tech_support
-streaming_tv
-streaming_movies
-```
-```python
-monthly_charges
-total_charges
-contract_type
-internet_service_type
-```
-```python
-payment_type
-paperless_billing
-```
-```python
-churn
-```
+* For loop chi square all categorical features against churn, and sort each feature by accuracy
+* Explore further numerical features
+* Look for other ways to calculate "Total Charges" Such as standard deviation from the mean and compare against churn

@@ -1,0 +1,25 @@
+Right - Labor
+Left - Barrera
+Right - Alamo
+Left - Commerce
+Right - Navarro
+
+* "Lower Rated White" and "Rated" were each found to be drivers of "churn"
+    * Though the amount of influence each has is likely to be weak
+* "Rating Difference" was found to be a driver of "churn"
+* "Time Control Group" was found to be a driver of "churn" 
+    * Being in the standard time control or not seemed to have a particularly strong influence.
+* "Opening Name" was found to be a driver of "churn" 
+    * churn percentage ranged from 20-37%
+    * encoding all of these features would result in more noise than signal to the model
+    * It may be possible to create groups of similar openings in order to make a more reasonable number features
+
+<br>
+* "Game Rating" was not found to be a driver of churn
+<br>
+
+# Features I am moving to modeling With
+* "Lower Rated White" (small difference in churn percentage, but relationship to churn is statistically significant)
+* "Rated" (small difference in churn percentage, but relationship to churn is statistically significant)
+* "Time Control standard" (moderate difference in churn percentage, and dependance is statistically significant)
+* "Rating Difference" (Large difference in rating observed, and difference is significant)

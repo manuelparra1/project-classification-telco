@@ -1,19 +1,11 @@
-def split_dataset(df):
-    import pandas as pd
-    import numpy as np
+def get_forest(x_t,x_v,y_t,y_v):
+    '''compare accuracy of Train & Validate set'''
+    from sklearn.ensemble import RandomForestClassifier
 
-    from sklearn.model_selection import train_test_split
+    # create model object and fit it to training data
+    rf = RandomForestClassifier(max_depth=4, random_state=123)
+    rf.fit(train_X,train_y)
 
-    '''
-    returns train, validate, test (in that order)
-    
-    uses train_test_split() from SciKit Learn - Model Selection
-    
-    20% test, 80% train_validate
-    then of the 80% train_validate: 30% validate, 70% train.
-    '''
-
-    train_validate, test = train_test_split(df, test_size=.2, random_state=123)
-    train, validate = train_test_split(train_validate, test_size=.3, random_state=123)
-
-    return train,validate,test
+    # print result
+    print(f"Accuracy of Random Forest on train is {rf.score(x_t, y_t)}")
+    print(f"Accuracy of Random Forest on validate is {rf.score(x_v, y_v)}")
